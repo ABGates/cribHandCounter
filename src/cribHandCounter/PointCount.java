@@ -39,29 +39,6 @@ public class PointCount {
 	}
 	
 	/*
-	 * Calculates points in hand using run hand that was created in runPoints method
-	 * @param run is a hand of cards that are in the runs
-	 */
-	public void runPoints(Hand run) {
-		int duplicate = 0;
-		int multiplier = 1;
-		
-		//count how many duplicate cards are in the hand
-		for(int i=0; i<run.getHandSize(); i++) {
-			for(int j=0; j<this.hand.getHandSize(); j++) {
-				if(run.getCard(i).getAbsValue() == this.hand.getCard(j).getAbsValue() ) {
-					duplicate++;
-				}
-			}
-			if(duplicate>=1)
-				multiplier*=duplicate;
-			duplicate = 0;
-		}
-		this.points += multiplier*run.getHandSize();
-		System.out.println("Points from Runs: " + multiplier*run.getHandSize());
-	}
-	
-	/*
 	 * Finds runs in your hand 
 	 */
 	public void findRuns() {
@@ -103,6 +80,31 @@ public class PointCount {
 	}
 	
 	/*
+	 * Calculates points in hand using run hand that was created in runPoints method
+	 * @param run is a hand of cards that are in the runs
+	 */
+	public void runPoints(Hand run) {
+		int duplicate = 0;
+		int multiplier = 1;
+		
+		//count how many duplicate cards are in the hand
+		for(int i=0; i<run.getHandSize(); i++) {
+			for(int j=0; j<this.hand.getHandSize(); j++) {
+				if(run.getCard(i).getAbsValue() == this.hand.getCard(j).getAbsValue() ) {
+					duplicate++;
+				}
+			}
+			if(duplicate>=1)
+				multiplier*=duplicate;
+			duplicate = 0;
+		}
+		this.points += multiplier*run.getHandSize();
+		System.out.println("Points from Runs: " + multiplier*run.getHandSize());
+	}
+	
+	
+	
+	/*
 	 * Finds points based on combinations of 15
 	 */
 	public void fifteenCombination(int[] a,int[] b,int aBeg,int bEnd){
@@ -118,6 +120,7 @@ public class PointCount {
 	       int sum = 0;
 	    	for (int i=0;i<=len;i++) {
 	            sum+= a[i];
+	     //       System.out.println("1 combination");
 	        }
 	        if(sum == 15) 
 	        	fifteenPoints+=2;
@@ -160,6 +163,7 @@ public class PointCount {
 	
 	/*
 	 * counts the points for having the jack of trumps
+	 * currently not implemented for ease of entering true/false
 	 */
 	public void jackPoints(boolean nobs) {
 		//boolean nobs =false;
@@ -180,4 +184,5 @@ public class PointCount {
 			System.out.println("Nobs: 0 Points");
 		
 	}
+
 }

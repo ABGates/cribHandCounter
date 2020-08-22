@@ -31,6 +31,10 @@ public class Hand implements Cloneable{
 		return this.hand.size();
 	}
 	
+	public int indexOf(Card c) {
+		return this.hand.indexOf(c);
+	}
+	
 	public String toString() {
 		String handString = "Hand Size: " + this.getHandSize() + "\nCards in hand: ";
 		for(Card c:this.hand) {
