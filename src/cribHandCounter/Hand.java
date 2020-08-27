@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Hand implements Cloneable{
 
 	private ArrayList<Card> hand;
-	private Card cutCard;
 	
 	public Hand() {
 		this.hand = new ArrayList<Card>();
@@ -20,12 +19,6 @@ public class Hand implements Cloneable{
 	
 	public Card getCard(int index) {return hand.get(index);}
 	
-	public void setCutCard(Card card) {
-		this.cutCard = card;
-		this.hand.add(this.cutCard);
-	}
-	
-	public Card getCutCard() {return this.cutCard;}
 	
 	public int getHandSize() {
 		return this.hand.size();

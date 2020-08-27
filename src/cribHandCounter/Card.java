@@ -6,66 +6,45 @@ package cribHandCounter;
  * @date Nov.06.2019
  */
 
-public class Card implements Comparable{
+public class Card {
 	
-	private String name;
-	private String suit;
+	private int value;
 
-	public Card(String name, String suit){
-		this.name = name;
-		this.suit = suit;
+
+	public Card(int value){
+		this.value = value;
 	}
 	
 
-	public String getName(){return this.name;}
+	public int getAbsValue(){return this.value;}
 	
-	public String getSuit(){return this.suit;}
-	
-	public int getAbsValue() {
-		int absValue = 0;
-		
-		switch(this.name.toLowerCase()) {
-			case "1": absValue = 1; break;
-			case "2": absValue = 2; break;
-			case "3": absValue = 3; break;
-			case "4": absValue = 4; break;
-			case "5": absValue = 5; break;
-			case "6": absValue = 6; break;
-			case "7": absValue = 7; break;
-			case "8": absValue = 8; break;
-			case "9": absValue = 9; break;
-			case "10": absValue = 10; break;
-			case "11": absValue = 11; break;
-			case "12": absValue = 12; break;
-			case "13": absValue = 13; break;
-		}
-		return absValue;		
-	}
 	
 	public int getCribValue() {
-		int cribValue = 0;
-		
-		switch(this.name.toLowerCase()) {
-			case "1": cribValue = 1; break;
-			case "2": cribValue = 2; break;
-			case "3": cribValue = 3; break;
-			case "4": cribValue = 4; break;
-			case "5": cribValue = 5; break;
-			case "6": cribValue = 6; break;
-			case "7": cribValue = 7; break;
-			case "8": cribValue = 8; break;
-			case "9": cribValue = 9; break;
-			case "10": cribValue = 10; break;
-			case "11": cribValue = 10; break;
-			case "12": cribValue = 10; break;
-			case "13": cribValue = 10; break;
-		}
-		
-		return cribValue;
+		if (this.value < 10)
+			return this.value;
+		else
+			return 10;
 	}
 	
 	public String toString(){
-		return this.name + " of " + this.suit;
+		
+		switch(this.value) {
+			case 1: return "Ace";
+			case 2: return "Two";
+			case 3: return "Three";
+			case 4: return "Four";
+			case 5: return "Five";
+			case 6: return "Six";
+			case 7: return "Seven";
+			case 8: return "Eight";
+			case 9: return "Nine";
+			case 10: return "Ten";
+			case 11: return "Jack";
+			case 12: return "Queen";
+			case 13: return "King";
+		}
+		
+		return "This card has an invalid value";
 	}
 
 	/*override of equals method, if cards have the same face value they are equal
@@ -82,14 +61,14 @@ public class Card implements Comparable{
 	 * @param o is object to compare
 	 * @return is -1,0,1
 	 */
-	public int compareTo(Object o) {
+	/*public int compareTo(Object o) {
 		Card other = (Card)o;
 		if(other.getAbsValue() > this.getAbsValue())
 			return -1;
 		else if(other.getAbsValue() < this.getAbsValue())
 			return 1;
 		else return 0;
-	}
+	}*/
 	
 	
 

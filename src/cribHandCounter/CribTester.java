@@ -15,27 +15,18 @@ public class CribTester {
 		Scanner in = new Scanner(System.in);
 		
 		Hand hand = new Hand();
-		String[] suits = {"Spades","Diamonds","Clubs","Hearts"};
 		
 		System.out.println("Enter Cards in Your Hand In The Format:1,2,3,4, ...");
 		
 		//split the entered string at the comma
-		String[] handArray = in.nextLine().split(",");
-		for(String s: handArray) {
+		String[] inArray = in.nextLine().split(",");
+		for(String s: inArray) {
 			//split the string at a space to separate suit and name
-			//Card c = new Card(s.substring(0,s.indexOf(' ')),s.substring(s.indexOf(' ')+1));
-			Card c = new Card(s,suits[(int) (Math.random() * 3)]);
+			Card c = new Card(Integer.parseInt(s));
 			hand.addCard(c);
 		}
-		
-		//enter the cut card
-		System.out.println("Enter Cut Card in Format: 1 or 2 or 3...");
-		String cc = in.nextLine();
-		//Card cc = new Card(cc.substring(0,cc.indexOf(' ')),cc.substring(cc.indexOf(' ')+1));
-		Card cutCard = new Card(cc,suits[(int) (Math.random() * 3)]);
-		hand.setCutCard(cutCard);
-		
-
+	
+	
 		
 		PointCount points = new PointCount(hand);
 		//these do not require sorting
@@ -45,7 +36,7 @@ public class CribTester {
 		boolean sameSuit = in.nextBoolean();
 		
 		points.jackPoints(nobs);
-		points.fullSuitPoints(sameSuit);
+		points.fullSuitPoints(sameSuit,false);
 		
 		//make sure hand is sorted before calculating points that require sorting
 		hand.sort();
@@ -63,6 +54,7 @@ public class CribTester {
 		System.out.println(points);
 		System.out.println(hand);
 		
+		in.close();
 	}
 
 }

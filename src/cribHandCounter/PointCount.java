@@ -25,7 +25,7 @@ public class PointCount {
 	/*
 	 * Calculates points based on pairs that exist in hand
 	 */
-	public void pairsPoints() {
+	public int pairsPoints() {
 		int pointCount = 0;
 		for(int i = 0; i<=this.hand.getHandSize()-2; i++) {
 			for(int j=i+1; j<=this.hand.getHandSize()-1; j++) {
@@ -36,12 +36,15 @@ public class PointCount {
 		}
 		System.out.println("Pairs Points: " + pointCount);
 		this.points+=pointCount;
+		return pointCount;
 	}
 	
 	/*
 	 * Finds runs in your hand 
 	 */
-	public void findRuns() {
+	public int findRuns() {
+		int runPoints = 0;
+		
 		int runLength = 1;
 		
 		//this will create a new hand of no duplicate cards
@@ -70,20 +73,20 @@ public class PointCount {
 				for(int q=i+j-1; q>=i; q--) {
 					runHand.addCard(noDup.getCard(q));
 				}
-				runPoints(runHand);
+				runPoints += runPoints(runHand);
 			}
 			
 			i +=j-1;			//j-1 because for loop iterates 
 			runLength = 1;
-
 		}
+		return runPoints;
 	}
 	
 	/*
 	 * Calculates points in hand using run hand that was created in runPoints method
 	 * @param run is a hand of cards that are in the runs
 	 */
-	public void runPoints(Hand run) {
+	public int runPoints(Hand run) {
 		int duplicate = 0;
 		int multiplier = 1;
 		
@@ -100,6 +103,7 @@ public class PointCount {
 		}
 		this.points += multiplier*run.getHandSize();
 		System.out.println("Points from Runs: " + multiplier*run.getHandSize());
+		return multiplier*run.getHandSize();
 	}
 	
 	
@@ -126,63 +130,41 @@ public class PointCount {
 	        	fifteenPoints+=2;
 	}
 	 
-	 public void addFifteenPoint(){System.out.println("Points from fifteens: " + fifteenPoints); this.points+= this.fifteenPoints;} //gross get rid off
+	 public int addFifteenPoint(){System.out.println("Points from fifteens: " + fifteenPoints); this.points+= this.fifteenPoints; return this.fifteenPoints;} //gross get rid off
 	
 	/* 
 	 * Counts the points for having all cards of the same suit
 	 * if the hand size is greater than 5, double points 
 	 * cuurently not implementing auto counting for ease of entering values
 	 */
-	public void fullSuitPoints(boolean sameSuit) {
-		
-		//boolean sameSuit = false;
+	public int fullSuitPoints(boolean sameSuit, boolean cutCard) {
 		int pointCount =0;
-		/*String suit = this.hand.getCard(0).getSuit();
 		
-		//start at the end of the hand, if all of them equal the suit of the first card then they are all the same suit (start at minus 2 b/c trump card)
-		for(int i=this.hand.getHandSize()-2; i>=0; i--) {
-			if(!this.hand.getCard(i).getSuit().equals(suit)) {
-				break;
-			}
-			if(i == 0)
-				sameSuit = true;
-		}*/
-		
-		if(sameSuit) 
-			pointCount += ( (this.hand.getHandSize()-1) * ( (this.hand.getHandSize() -1) / 3) );  //  x/3 is for multiplier of hand size 
-		
-		
-		//add additional points if cut card also matches same suit
-		/*if(this.hand.getCutCard().getSuit().equals(suit) && sameSuit) 
-				pointCount+= (1* ( (this.hand.getHandSize()-1) / 3) );*/
-		
-		
+		if(sameSuit && cutCard) 
+			pointCount += this.hand.getHandSize();
+		else if(sameSuit)
+			pointCount += this.hand.getHandSize()-1;
+				
 		System.out.println("Suit Points: " + pointCount);
+		
 		this.points+=pointCount;
+		return pointCount;
 	}
 	
 	/*
 	 * counts the points for having the jack of trumps
 	 * currently not implemented for ease of entering true/false
 	 */
-	public void jackPoints(boolean nobs) {
-		//boolean nobs =false;
-		
-		/*for(int i=0; i<this.hand.getHandSize(); i++) {
-			//if its a jack and suit is same as cut card
-			if( (this.hand.getCard(i).getAbsValue() == 11) && this.hand.getCard(i).getSuit().equals(this.hand.getCutCard().getSuit()) ) {
-				this.points +=1;	
-				System.out.println("Nobs: 1 Point");
-				nobs = true;
-			}
-		}*/
+	public int jackPoints(boolean nobs) {
+
 		if(nobs) {
 			System.out.println("Nobs: 1 Point");
 			points+=1;
+			return 1;
 		}
-		if(!nobs)
+		if(!nobs) 
 			System.out.println("Nobs: 0 Points");
-		
+			
+		return 0;
 	}
-
 }
